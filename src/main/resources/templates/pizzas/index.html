@@ -1,11 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <div th:replace="~{/fragments/header :: head}"></div>
+    <title>Pizzeria Spring</title>
 </head>
+
 <body>
-    
+    <main>
+        <div class="container">
+            <div th:if="${list.isEmpty()}">
+                <p>La lista è vuota.</p>
+            </div>
+
+            <!-- Table -->
+            <div th:unless="${list.isEmpty()}">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Foto</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Prezzo</th>
+                            <th scope="col">Descrizione</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="pizza : ${list}">
+                            <td th:text="${pizza.picture}"></td>
+                            <td th:text="${pizza.name}"></td>
+                            <td th:text="|${pizza.price} €|"></td>
+                            <td th:text="${pizza.description}"></td>
+                            <td>
+                                <a class="btn btn-info" th:href="@{|/pizzas/show/${pizza.id}|}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2"/>
+                                    </svg>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    <div th:replace="~{fragments/header :: bootstrapScript}"></div>
 </body>
+
 </html>
