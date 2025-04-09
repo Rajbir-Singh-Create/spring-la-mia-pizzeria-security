@@ -8,22 +8,33 @@
 
 <body>
     <header>
-         <!-- Navbar -->
-         <nav th:replace="~{fragments/navbar :: navbar('pizzas')}"></nav>
+        <!-- Navbar -->
+        <nav th:replace="~{fragments/navbar :: navbar('pizzas')}"></nav>
     </header>
     <main>
         <div class="container">
+
+            <!-- Messaggio di creazione pizza -->
+            <th:block th:if="${successMessage != null}">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <span th:text="${successMessage}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </th:block>
 
             <!-- Form di ricerca -->
             <div class="my-3 d-flex justify-content-between">
                 <a class="btn btn-success" th:href="@{/pizzas/create}">Add Pizza</a>
                 <form th:action="@{/pizzas}" method="get">
                     <div class="input-group">
-                        <input name="keyword" th:value="${keyword}" class="form-control" type="search" placeholder="Quale pizza cerchi?" aria-label="Quale pizza cerchi?">
+                        <input name="keyword" th:value="${keyword}" class="form-control" type="search"
+                            placeholder="Quale pizza cerchi?" aria-label="Quale pizza cerchi?">
                         <button class="btn btn-primary" type="submit">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                              </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-search" viewBox="0 0 16 16">
+                                <path
+                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                            </svg>
                         </button>
                     </div>
                 </form>
@@ -52,8 +63,10 @@
                             <td th:text="${pizza.description}"></td>
                             <td>
                                 <a class="btn btn-info" th:href="@{|/pizzas/show/${pizza.id}|}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
-                                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2"/>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
                                     </svg>
                                 </a>
                             </td>
