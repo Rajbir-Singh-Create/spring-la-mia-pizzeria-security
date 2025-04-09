@@ -7,12 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.lessons.pizzeria.model.Pizza;
 import it.lessons.pizzeria.repository.PizzaRepository;
+
 
 
 @Controller
@@ -51,4 +54,23 @@ public class PizzaController {
         return "/error_pages/genericError";
     }
     
+    // Metodo GET per la form
+    @GetMapping("/create")
+    public String create(Model model) {
+        model.addAttribute("pizza", new Pizza());
+
+        return "/pizzas/create";
+    }
+    
+    // Metodo POST per la form
+    @PostMapping("/create")
+    public String store(@ModelAttribute("pizza") Pizza formPizza, Model model) {
+        // Logica di validazione
+
+        // Logica di salvataggio
+        pizzaRepository.save(formPizza);
+        return "redirect:/pizzas";
+    }
+    
+
 }
