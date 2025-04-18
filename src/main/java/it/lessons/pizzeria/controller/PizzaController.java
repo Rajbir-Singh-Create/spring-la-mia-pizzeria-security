@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import it.lessons.pizzeria.model.Pizza;
 import it.lessons.pizzeria.repository.PizzaRepository;
 import jakarta.validation.Valid;
+
+
 
 
 
@@ -78,6 +81,41 @@ public class PizzaController {
         pizzaRepository.save(formPizza);
 
         redirectAttributes.addFlashAttribute("successMessage", "Pizza created successfully!");
+        return "redirect:/pizzas";
+    }
+    
+    // UPDATE
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable("id") Integer id, Model model){
+        model.addAttribute("pizza", pizzaRepository.findById(id).get());
+
+        return "/pizzas/edit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String update(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+        // Validazione custom di errori
+        Pizza dbPizza = pizzaRepository.findById(formPizza.getId()).get();
+        
+        if(!dbPizza.getName().equals(formPizza.getName())){
+            bindingResult.addError(new ObjectError("name", "stai modificando il nome"));
+        }
+
+        if(bindingResult.hasErrors()){
+            return "/pizzas/edit";
+        }
+        pizzaRepository.save(formPizza);
+
+        // TODO: implementare
+        // redirectAttributes.addFlashAttribute("successMessage", "Pizza updated successfully!");
+        return "redirect:/pizzas";
+    }
+    
+    // DELETE
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id) {
+        pizzaRepository.deleteById(id);
+        
         return "redirect:/pizzas";
     }
     
