@@ -2,6 +2,8 @@ package it.lessons.pizzeria.model;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,8 +24,10 @@ public class Discount {
     private double discountPercentage;
 
     @NonNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDiscount;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDiscount;
 
     private String title;

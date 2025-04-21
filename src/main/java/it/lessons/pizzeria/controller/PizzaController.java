@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import it.lessons.pizzeria.model.Discount;
 import it.lessons.pizzeria.model.Pizza;
+import it.lessons.pizzeria.repository.DiscountRepository;
 import it.lessons.pizzeria.repository.PizzaRepository;
 import jakarta.validation.Valid;
 
@@ -30,8 +31,15 @@ import jakarta.validation.Valid;
 public class PizzaController {
 
     // Inietto la repository per utilizzarne i metodi concretizzati dalla IoC
-    @Autowired 
+    private DiscountRepository discountRepository;
     private PizzaRepository pizzaRepository;
+    
+    @Autowired 
+    public PizzaController(DiscountRepository discountRepository, PizzaRepository pizzaRepository) {
+        this.discountRepository = discountRepository;
+        this.pizzaRepository = pizzaRepository;
+    }
+    
 
     @GetMapping
     public String index(Model model, @RequestParam(name="keyword", required=false) String name) {
@@ -115,6 +123,12 @@ public class PizzaController {
     // DELETE
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
+        Pizza pizza = pizzaRepository.findById(id).get();
+
+        for(Discount d : pizza.getDiscounts()){
+            discountRepository.deleteById(d.getId());
+        }
+        
         pizzaRepository.deleteById(id);
         
         return "redirect:/pizzas";
