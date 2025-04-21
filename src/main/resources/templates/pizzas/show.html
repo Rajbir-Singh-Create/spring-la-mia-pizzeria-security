@@ -24,12 +24,47 @@
                         <dt>Pizza</dt>
                         <dd th:text="*{name}"></dd>
                         <dt>Prezzo</dt>
-                        <dd th:text="*{price}"></dd>
+                        <dd th:text="|*{price} €|"></dd>
                         <th:block th:if="${#strings.isEmpty(description)}">
                             <dt>Descrizione</dt>
                             <dd th:text="*{description}"></dd>
                         </th:block>
                     </dl>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <h3>Discounts</h3>
+                    <div class="mb-2">
+                        <!-- Creazione di una nuova offerta -->
+                        <a class="btn btn-success" th:href="@{|/pizzas/${pizza.id}/discounts|}">
+                            <!-- @{'/pizzas/{id}/discounts'(id=${pizza.id})} -->
+                            Aggiungi offerta speciale
+                        </a>
+                    </div>
+                    <table class="table table-striped" th:if="${pizza.discounts.size() > 0}">
+                        <thead>
+                            <tr>
+                                <th>Titolo</th>
+                                <th>Valore offerta</th>
+                                <th>Inizio offerta</th>
+                                <th>Fine offerta</th>
+                            </tr>
+                            <tbody>
+                                <tr th:each="discount : ${pizza.discounts}">
+                                    <td th:text="${discount.title}"></td>
+                                    <td th:text="|${discount.discountPercentage} %|"></td>
+                                    <td th:text="${discount.startDiscount}"></td>
+                                    <td th:text="${discount.endDiscount}"></td>
+                                </tr>
+                            </tbody>
+                        </thead>
+                    </table>
+                    <div th:unless="${pizza.discounts.size() > 0}">
+                        <div class="alert alert-primary">
+                            Non ci sono offerte speciali per questa pizza.
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

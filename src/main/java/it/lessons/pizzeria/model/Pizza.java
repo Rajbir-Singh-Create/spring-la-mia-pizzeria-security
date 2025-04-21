@@ -1,9 +1,12 @@
 package it.lessons.pizzeria.model;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
@@ -36,6 +39,17 @@ public class Pizza {
     @Min(value=1)
     @DecimalMin(value="0.0", message="devi inserire un prezzo valido")
     private Double price;
+
+    @OneToMany(mappedBy="pizza")
+    private List<Discount> discounts;
+
+    public List<Discount> getDiscounts() {
+        return discounts;
+    }
+
+    public void setDiscounts(List<Discount> discounts) {
+        this.discounts = discounts;
+    }
 
     public Integer getId() {
         return id;
