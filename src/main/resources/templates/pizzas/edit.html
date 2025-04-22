@@ -103,6 +103,15 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Ingredienti -->
+                    <!-- TODO rivedere -->
+                    <div class="col-4">
+                        <h4>Ingredienti</h4>
+                        <div class="form-check" th:each="ing : ${ingredientsList}">
+                            <input class="form-check-input" type="checkbox" th:id="${ing.id}" th:value="${ing.id}" th:field="*{ingredients}">
+                            <label class="form-check-label" th:for="${ing.id}" th:text="${ing.ingredient}"></label>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

@@ -20,6 +20,10 @@
                             <a class="nav-link" th:classAppend="${current == 'pizzas'} ? active : not-active" 
                             aria-current="page" th:href="@{/pizzas}">Pizzas</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:classAppend="${current == 'ingredients'} ? active : not-active" 
+                            aria-current="page" th:href="@{/ingredients}">Ingredients</a>
+                        </li>
                     </ul>
                 </div>
             </div>
