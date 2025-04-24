@@ -50,6 +50,17 @@ public class PizzaService {
         return pizzaRepository.save(pizza);
     }
 
+    // Modifica
+    public Pizza update(Pizza pizza){
+        Optional<Pizza> optPizza = pizzaRepository.findById(pizza.getId());
+        // cerchiamo se esiste la pizza
+        if(optPizza.isEmpty()){
+            throw new IllegalArgumentException("impossibile aggiornare la pizza senza l'ID");
+        }
+
+        return pizzaRepository.save(pizza);
+    }
+
     // Cancellazione
     public void deletebyId(Integer id){
         Pizza pizza = pizzaRepository.findById(id).get();
