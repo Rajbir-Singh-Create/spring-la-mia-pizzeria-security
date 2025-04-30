@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import it.lessons.pizzeria.model.Discount;
 import it.lessons.pizzeria.repository.DiscountRepository;
 import it.lessons.pizzeria.repository.PizzaRepository;
-import it.lessons.pizzeria.service.PizzaService;
 import jakarta.validation.Valid;
 
 
@@ -31,9 +30,6 @@ public class DiscountController {
 
     @Autowired
     private PizzaRepository pizzaRepository;
-
-    @Autowired
-    private PizzaService pizzaService;
 
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("discount") Discount formDiscount, BindingResult bindingResult, Model model) {

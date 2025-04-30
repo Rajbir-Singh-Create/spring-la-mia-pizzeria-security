@@ -9,7 +9,10 @@
     <main>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="navbar(current)">
             <div class="container-fluid">
-                <a class="navbar-brand" th:href="@{/}">Pizzeria Spring</a>
+                <a class="navbar-brand" th:href="@{/}">
+                    <img src="/img/icons8-pizza-100.png" alt="Pizza Logo" width="40" height="40">
+                    Pizzeria Spring
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -18,11 +21,11 @@
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link" th:classAppend="${current == 'pizzas'} ? active : not-active" 
-                            aria-current="page" th:href="@{/pizzas}">Pizzas</a>
+                            aria-current="page" th:href="@{/pizzas}">Pizze</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" th:classAppend="${current == 'ingredients'} ? active : not-active" 
-                            aria-current="page" th:href="@{/ingredients}">Ingredients</a>
+                            aria-current="page" th:href="@{/ingredients}">Ingredienti</a>
                         </li>
                     </ul>
                 </div>

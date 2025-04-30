@@ -12,8 +12,10 @@
         <nav th:replace="~{fragments/navbar :: navbar('ingredients')}"></nav>
     </header>
     <main>
-        <div class="container">
-            <h1>Ingredients</h1>
+        <div class="container my-3">
+            <h1>Ingredienti</h1>
+            <hr />
+
             <div class="row">
                 <div class="col-4">
                     <form id="ingredients-form" th:object="${ingredientObj}" th:action="@{/ingredients/create}" method="post">
@@ -23,7 +25,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
                                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
                                 </svg>
-                                Add
+                                Aggiungi
                             </button>
                         </div>
                     </form>
@@ -40,7 +42,7 @@
                         </li>
                     </ul>
                     <div class="alert alert-primary" role="alert" th:unless="${list.size() > 0}">
-                        Non ci sono ingredienti nel database.
+                        Non ci sono ingredienti in dispensa.
                     </div>
                 </div>
             </div>

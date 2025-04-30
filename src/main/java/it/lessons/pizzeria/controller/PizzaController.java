@@ -108,8 +108,7 @@ public class PizzaController {
         }
         service.create(formPizza);
 
-        // TODO: implementare
-        // redirectAttributes.addFlashAttribute("successMessage", "Pizza updated successfully!");
+        redirectAttributes.addFlashAttribute("successMessage", "Pizza updated successfully!");
         return "redirect:/pizzas";
     }
     

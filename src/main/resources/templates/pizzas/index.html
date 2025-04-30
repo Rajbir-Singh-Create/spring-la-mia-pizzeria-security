@@ -16,15 +16,15 @@
 
             <!-- Messaggio di creazione pizza -->
             <th:block th:if="${successMessage != null}">
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <div class="alert alert-success alert-dismissible fade show my-2" role="alert">
                     <span th:text="${successMessage}"></span>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             </th:block>
 
             <!-- Form di ricerca -->
-            <div class="my-3 d-flex justify-content-between">
-                <a class="btn btn-success" th:href="@{/pizzas/create}">Add Pizza</a>
+            <div class="my-4 d-flex justify-content-between">
+                <a class="btn btn-success" th:href="@{/pizzas/create}">Crea Pizza</a>
                 <form th:action="@{/pizzas}" method="get">
                     <div class="input-group">
                         <input name="keyword" th:value="${keyword}" class="form-control" type="search"
@@ -40,56 +40,38 @@
                 </form>
             </div>
 
+            <!-- Messaggio no pizze -->
             <div th:if="${list.isEmpty()}">
-                <p>La lista è vuota.</p>
+                <div class="alert alert-dark" role="alert">
+                    Sembra non ci siano pizze in forno!
+                </div>
             </div>
 
             <!-- Group card -->
             <div class="row row-cols-1 row-cols-md-3 g-4" th:unless="${list.isEmpty()}">
                 <div class="col" th:each="pizza : ${list}">
-                  <div class="card h-100">
-                    <div class="row">
-                        <div class="col">
-                            <img th:src="${pizza.picture}" class="card-img-top" alt="pizza image">
+                    <div class="card h-100 card-hover">
+                        <a class="" th:href="@{|/pizzas/show/${pizza.id}|}">
+                            <img th:src="${pizza.picture}" class="card-img-top" style="height:300px; object-fit:cover;" alt="pizza image">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${pizza.name}"></h5>
+                            <p class="card-text" th:text="${pizza.description}"></p>
                         </div>
-                        <div class="col">
-                            <div class="card-body">
-                                <h5 class="card-title" th:text="${pizza.name}"></h5>
-                                <p class="card-text" th:text="${pizza.description}"></p>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <p th:text="|${pizza.price} €|"></p>
+                                <div class="d-flex justify-content-evenly">
+                                    <a class="btn btn-outline-primary mx-1" th:href="@{|/pizzas/edit/${pizza.id}|}"> Modifica Pizza </a>
+                                    <form action="#" th:action="@{'/pizzas/delete/{id}'(id=${pizza.id})}" method="post" onclick="return confirm('Are you sure?')">
+                                        <button class="btn btn-outline-danger mx-1" type="submit" id="submitButton"> Elimina Pizza </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <a class="btn btn-info" th:href="@{|/pizzas/show/${pizza.id}|}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-info-circle-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
-                            </svg>
-                        </a>
-                        <a class="btn btn-primary" th:href="@{|/pizzas/edit/${pizza.id}|}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                <path
-                                    d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                                <path fill-rule="evenodd"
-                                    d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
-                            </svg>
-                        </a>
-                        <form action="#" th:action="@{'/pizzas/delete/{id}'(id=${pizza.id})}" method="post" onclick="return confirm('Are you sure?')">
-                            <button class="btn btn-danger" type="submit" id="submitButton">    
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
-                                </svg>
-                            </button>
-                        </form>
-                    </div>
-                </div>
                 </div>
             </div>
-
-            <!-- Table -->
-
         </div>
     </main>
     <div th:replace="~{fragments/header :: bootstrapScript}"></div>
