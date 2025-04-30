@@ -35,12 +35,14 @@ public class PizzaController {
     @Autowired
     private IngredientsService ingService;
 
+    // Index - home page
     @GetMapping
     public String index(Model model, @RequestParam(name="keyword", required=false) String name) {
         model.addAttribute("list", service.findPizzaList(name));
         return "/pizzas/index";
     }
 
+    // show page
     @GetMapping("/show/{id}")
     public String show(@PathVariable("id") Integer id, Model model){
         Optional<Pizza> optPizza = service.findPizzaById(id);

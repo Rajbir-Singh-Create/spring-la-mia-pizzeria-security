@@ -1,5 +1,7 @@
 package it.lessons.pizzeria.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import it.lessons.pizzeria.model.Discount;
 import it.lessons.pizzeria.repository.DiscountRepository;
 import it.lessons.pizzeria.repository.PizzaRepository;
+import it.lessons.pizzeria.service.PizzaService;
 import jakarta.validation.Valid;
+
 
 
 
@@ -27,6 +31,9 @@ public class DiscountController {
 
     @Autowired
     private PizzaRepository pizzaRepository;
+
+    @Autowired
+    private PizzaService pizzaService;
 
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("discount") Discount formDiscount, BindingResult bindingResult, Model model) {
@@ -75,6 +82,22 @@ public class DiscountController {
         discountRepository.save(formDiscount);
 
         return "redirect:/pizzas/show/" + formDiscount.getPizza().getId();
+    }
+    
+    // Eliminazione offerta
+    @PostMapping("/delete/{discountId}")
+    public String delete(@PathVariable Long discountId) {
+        // Recupero discount dal repository
+        Optional<Discount> discount = discountRepository.findById(discountId);
+        
+        // Recupero l'id della pizza associata prima di eliminare l'offerta
+        Integer pizzaId = discount.get().getPizza().getId();
+
+        // Elimino l'offerta
+        discountRepository.deleteById(discountId);
+        
+        // Redirect al dettaglio pizza
+        return "redirect:/pizzas/show/" + pizzaId;
     }
     
 }
