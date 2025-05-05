@@ -51,7 +51,7 @@
             <div class="row row-cols-1 row-cols-md-3 g-4" th:unless="${list.isEmpty()}">
                 <div class="col" th:each="pizza : ${list}">
                     <div class="card h-100 card-hover">
-                        <a class="" th:href="@{|/pizzas/show/${pizza.id}|}">
+                        <a th:href="@{|/pizzas/show/${pizza.id}|}">
                             <img th:src="${pizza.picture}" class="card-img-top" style="height:300px; object-fit:cover;" alt="pizza image">
                         </a>
                         <div class="card-body">
@@ -62,9 +62,9 @@
                             <div class="d-flex justify-content-between">
                                 <p th:text="|${pizza.price} €|"></p>
                                 <div class="d-flex justify-content-evenly">
-                                    <a class="btn btn-outline-primary mx-1" th:href="@{|/pizzas/edit/${pizza.id}|}"> Modifica Pizza </a>
+                                    <a class="btn btn-outline-primary mx-1" th:href="@{|/pizzas/edit/${pizza.id}|}"> Modifica </a>
                                     <form action="#" th:action="@{'/pizzas/delete/{id}'(id=${pizza.id})}" method="post" onclick="return confirm('Are you sure?')">
-                                        <button class="btn btn-outline-danger mx-1" type="submit" id="submitButton"> Elimina Pizza </button>
+                                        <button class="btn btn-outline-danger mx-1" type="submit" id="submitButton"> Elimina </button>
                                     </form>
                                 </div>
                             </div>

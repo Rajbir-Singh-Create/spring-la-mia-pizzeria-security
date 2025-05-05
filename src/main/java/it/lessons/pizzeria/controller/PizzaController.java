@@ -66,7 +66,7 @@ public class PizzaController {
         return "/pizzas/create";
     }
     
-    // Metodo POST per la form
+    // Metodo POST per la form - creazione pizza
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         // Logica di validazione
@@ -106,6 +106,7 @@ public class PizzaController {
         if(bindingResult.hasErrors()){
             return "/pizzas/edit";
         }
+        
         service.create(formPizza);
 
         redirectAttributes.addFlashAttribute("successMessage", "Pizza updated successfully!");

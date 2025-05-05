@@ -17,53 +17,49 @@
             <hr/>
 
             <!-- form -->
-            <form id="discount-form" th:object="${discount}"
-                th:action="${editMode} ? @{|/discounts/edit/${discount.id}|} : @{/discounts/create}"
-                method="post">
+            <form id="discount-form" th:object="${discount}" th:action="${editMode} ? @{|/discounts/edit/${discount.id}|} : @{/discounts/create}" method="post">
                 
-                <!-- input non visibile, ci portiamo dentro l'oggetto pizza (riferimento alla pizza)
+                <!-- input non visibile: ci portiamo dentro l'oggetto pizza (riferimento alla pizza)
                 per non perdere la pizza al passaggio. Ci portiamo dietro la pizza di riferimento -->
                 <input type="hidden" th:field="*{pizza}" id="pizza">
+
                 <div class="row">
+
                     <!-- titolo offerta -->
                     <div class="col-12 my-2">
                         <label class="form-label" for="title">nome offerta</label>
                         <input type="text" class="form-control" id="title" th:field="*{title}" th:errorClass="is-Invalid">
-                        <div th:if="${#fields.hasErrors('title')}" class="invalid-feedback">
-                            <ul>
-                                <li th:each="err : ${#fields.errors('title')}" th:text="${err}"></li>
-                            </ul>
-                        </div>
+                        
+                        <ul th:if="${#fields.hasErrors('title')}">
+                            <li th:each="err : ${#fields.errors('title')}" class="text-danger" th:text="${err}"></li>
+                        </ul>
                     </div>
+
                     <!-- percentuale offerta -->
                     <div class="col-12 my-2">
                         <label class="form-label" for="discountPercentage">percentuale offerta</label>
                         <input type="number" class="form-control" id="discountPercentage" th:field="*{discountPercentage}" th:errorClass="is-Invalid">
-                        <div th:if="${#fields.hasErrors('discountPercentage')}" class="invalid-feedback">
-                            <ul>
-                                <li th:each="err : ${#fields.errors('discountPercentage')}" th:text="${err}"></li>
-                            </ul>
-                        </div>
+                        <ul th:if="${#fields.hasErrors('discountPercentage')}">
+                            <li th:each="err : ${#fields.errors('discountPercentage')}" class="text-danger" th:text="${err}"></li>
+                        </ul>
                     </div>
+
                     <!-- inizio offerta -->
                     <div class="col-12 my-2">
                         <label class="form-label" for="startDiscount">Inizio offerta</label>
                         <input type="date" class="form-control" id="startDiscount" th:field="*{startDiscount}" th:errorClass="is-Invalid">
-                        <div th:if="${#fields.hasErrors('startDiscount')}" class="invalid-feedback">
-                            <ul>
-                                <li th:each="err : ${#fields.errors('startDiscount')}" th:text="${err}"></li>
-                            </ul>
-                        </div>
+                        <ul th:if="${#fields.hasErrors('startDiscount')}">
+                            <li th:each="err : ${#fields.errors('startDiscount')}" class="text-danger" th:text="${err}"></li>
+                        </ul>
                     </div>
+                    
                     <!-- Fine offerta -->
                     <div class="col-12 my-2">
                         <label class="form-label" for="endDiscount">fine offerta</label>
                         <input type="date" class="form-control" id="endDiscount" th:field="*{endDiscount}" th:errorClass="is-Invalid">
-                        <div th:if="${#fields.hasErrors('endDiscount')}" class="invalid-feedback">
-                            <ul>
-                                <li th:each="err : ${#fields.errors('endDiscount')}" th:text="${err}"></li>
-                            </ul>
-                        </div>
+                        <ul th:if="${#fields.hasErrors('endDiscount')}">
+                            <li th:each="err : ${#fields.errors('endDiscount')}" th:text="${err}"></li>
+                        </ul>
                     </div>
 
                     <!-- Buttons -->

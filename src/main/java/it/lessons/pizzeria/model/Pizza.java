@@ -43,6 +43,7 @@ public class Pizza {
     @DecimalMin(value="0.0", message="devi inserire un prezzo valido")
     private Double price;
 
+    // “Questa lista di Discount è collegata alla proprietà pizza dentro l’entità Discount”
     @OneToMany(mappedBy="pizza")
     private List<Discount> discounts;
 

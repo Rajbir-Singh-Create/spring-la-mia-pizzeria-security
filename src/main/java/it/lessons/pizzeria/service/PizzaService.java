@@ -20,7 +20,7 @@ public class PizzaService {
     private PizzaRepository pizzaRepository;
     private IngredientsRepository ingredientRepository;
     
-    @Autowired 
+    @Autowired
     public PizzaService(DiscountRepository discountRepository, PizzaRepository pizzaRepository, IngredientsRepository ingredientRepository) {
         this.discountRepository = discountRepository;
         this.pizzaRepository = pizzaRepository;
@@ -65,6 +65,7 @@ public class PizzaService {
     public void deletebyId(Integer id){
         Pizza pizza = pizzaRepository.findById(id).get();
 
+        // Cancello tutte le offerte speciali collegate alla pizza
         for(Discount d : pizza.getDiscounts()){
             discountRepository.deleteById(d.getId());
         }

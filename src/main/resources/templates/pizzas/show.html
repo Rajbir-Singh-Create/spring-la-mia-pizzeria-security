@@ -54,7 +54,6 @@
                 <!-- Offerte speciali -->
                 <div class="col-4">
                     <h3>Offerte speciali</h3>
-                    <!-- Bottoni -->
                     <div class="mb-2 my-3">
                         <!-- Creazione di una nuova offerta -->
                         <a class="btn btn-success" th:href="@{|/pizzas/${pizza.id}/discounts|}">
@@ -79,8 +78,7 @@
                             </a>
                             <form action="#" th:action="@{'/discounts/delete/{id}'(id=${discount.id})}" method="post"
                                 onclick="return confirm('Are you sure?')">
-                                <button class="btn btn-outline-danger" type="submit" id="submitButton"> Elimina
-                                </button>
+                                <button class="btn btn-outline-danger" type="submit" id="submitButton"> Elimina </button>
                             </form>
                         </div>
                     </div>

@@ -3,7 +3,7 @@
 
 <head>
     <div th:replace="~{/fragments/header :: head}"></div>
-    <title>🍕 Edit pizza</title>
+    <title>Edit pizza</title>
 </head>
 
 <body>
@@ -73,7 +73,6 @@
                             </div>
 
                             <!-- Custom Errors -->
-                            <!-- TODO controllare il codice demo perché mostra l'errore due volte -->
                             <ul>
                                 <li th:each="err : ${#fields.allErrors()}" th:text="${err}" class="text-danger"></li>
                             </ul>
@@ -90,7 +89,7 @@
                                     Salva
                                 </button>
 
-                                <a class="btn btn-outline-danger" th:href="@{/pizzas}">
+                                <a class="btn btn-outline-danger" th:href="@{|/pizzas/show/${pizza.id}|}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                         class="bi bi-x-square" viewBox="0 0 16 16">
                                         <path
@@ -104,7 +103,6 @@
                         </div>
                     </div>
                     <!-- Ingredienti -->
-                    <!-- TODO rivedere -->
                     <div class="col-4">
                         <h4>Ingredienti</h4>
                         <div class="form-check" th:each="ing : ${ingredientsList}">

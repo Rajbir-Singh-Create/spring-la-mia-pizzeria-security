@@ -39,6 +39,7 @@ public class DiscountController {
             return "/discounts/edit";
         }
 
+        // Logica per gestire lo sconto sul prezzo
         double price = formDiscount.getPizza().getPrice();
         double discountApplied = formDiscount.getDiscountPercentage();
         formDiscount.getPizza().setPrice(price-(price*discountApplied/100));
