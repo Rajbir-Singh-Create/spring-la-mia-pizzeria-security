@@ -43,7 +43,7 @@
                     </ul>
 
                     <!-- shortcut bottoni per modificare ed eliminare la pizza -->
-                    <div class="d-flex">
+                    <div class="d-flex" sec:authorize="hasAuthority('ADMIN')">
                         <a class="btn btn-outline-primary mx-1" th:href="@{|/pizzas/edit/${pizza.id}|}"> Modifica Pizza </a>
                         <form action="#" th:action="@{'/pizzas/delete/{id}'(id=${pizza.id})}" method="post" onclick="return confirm('Are you sure?')">
                             <button class="btn btn-outline-danger mx-1" type="submit" id="submitButton"> Elimina Pizza </button>
@@ -56,7 +56,7 @@
                     <h3>Offerte speciali</h3>
                     <div class="mb-2 my-3">
                         <!-- Creazione di una nuova offerta -->
-                        <a class="btn btn-success" th:href="@{|/pizzas/${pizza.id}/discounts|}">
+                        <a class="btn btn-success" th:href="@{|/pizzas/${pizza.id}/discounts|}" sec:authorize="hasAuthority('ADMIN')">
                             <!-- @{'/pizzas/{id}/discounts'(id=${pizza.id})} -->
                             Aggiungi offerta speciale
                         </a>
@@ -73,7 +73,7 @@
                             <li class="list-group-item" th:text="|Inizio offerta: ${discount.startDiscount}|"></li>
                             <li class="list-group-item" th:text="|Termine offerta: ${discount.endDiscount}|"></li>
                         </ul>
-                        <div class="card-body d-flex justify-content-evenly">
+                        <div class="card-body d-flex justify-content-evenly" sec:authorize="hasAuthority('ADMIN')">
                             <a class="btn btn-outline-primary" th:href="@{|/discounts/edit/${discount.id}|}"> Modifica
                             </a>
                             <form action="#" th:action="@{'/discounts/delete/{id}'(id=${discount.id})}" method="post"

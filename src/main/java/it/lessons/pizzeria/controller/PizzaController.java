@@ -3,6 +3,7 @@ package it.lessons.pizzeria.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -37,15 +38,21 @@ public class PizzaController {
 
     // Index - home page
     @GetMapping
-    public String index(Model model, @RequestParam(name="keyword", required=false) String name) {
+    public String index(Authentication authentication, Model model, @RequestParam(name="keyword", required=false) String name) {
         model.addAttribute("list", service.findPizzaList(name));
+        // diamo la possibilità di vedere il nome nell'index
+        model.addAttribute("username", authentication.getName());
         return "/pizzas/index";
     }
 
     // show page
     @GetMapping("/show/{id}")
-    public String show(@PathVariable("id") Integer id, Model model){
+    public String show(Authentication authentication, @PathVariable("id") Integer id, Model model){
+        // diamo la possibilità di vedere il nome nella pagina
+        model.addAttribute("username", authentication.getName());
+
         Optional<Pizza> optPizza = service.findPizzaById(id);
+
         if(optPizza.isPresent()){
             model.addAttribute("pizza", optPizza.get());
             return "/pizzas/show";
@@ -59,7 +66,10 @@ public class PizzaController {
     
     // Metodo GET per la form
     @GetMapping("/create")
-    public String create(Model model) {
+    public String create(Authentication authentication, Model model) {
+        // diamo la possibilità di vedere il nome nella pagina
+        model.addAttribute("username", authentication.getName());
+
         model.addAttribute("pizza", new Pizza());
         // riempiamo la lista degli ingredienti (delle checkbox per gli ingredienti)
         model.addAttribute("ingredientsList", ingService.findAllIngredients());
@@ -87,7 +97,10 @@ public class PizzaController {
     
     // UPDATE
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable("id") Integer id, Model model){
+    public String edit(Authentication authentication, @PathVariable("id") Integer id, Model model){
+        // diamo la possibilità di vedere il nome nella pagina
+        model.addAttribute("username", authentication.getName());
+
         model.addAttribute("pizza", service.findPizzaById(id).get());
         model.addAttribute("ingredientsList", ingService.findAllIngredients());
 
@@ -123,7 +136,10 @@ public class PizzaController {
     
     // Metodo GET per la form di una nuova offerta
     @GetMapping("/{id}/discounts")
-    public String discount(@PathVariable Integer id, Model model) {
+    public String discount(Authentication authentication, @PathVariable Integer id, Model model) {
+        // diamo la possibilità di vedere il nome nella pagina
+        model.addAttribute("username", authentication.getName());
+
         // Creiamo un offerta vuota ma gli passiamo la pizza di riferimento
         Discount discount = new Discount();
         discount.setPizza(service.findPizzaById(id).get());

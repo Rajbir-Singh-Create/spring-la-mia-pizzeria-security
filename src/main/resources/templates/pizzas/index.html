@@ -24,8 +24,8 @@
 
             <!-- Form di ricerca -->
             <div class="my-4 d-flex justify-content-between">
-                <a class="btn btn-success" th:href="@{/pizzas/create}">Crea Pizza</a>
-                <form th:action="@{/pizzas}" method="get">
+                <a class="btn btn-success" th:href="@{/pizzas/create}" sec:authorize="hasAuthority('ADMIN')">Crea Pizza</a>
+                <form class="ms-auto" th:action="@{/pizzas}" method="get">
                     <div class="input-group">
                         <input name="keyword" th:value="${keyword}" class="form-control" type="search"
                             placeholder="Quale pizza cerchi?" aria-label="Quale pizza cerchi?">
@@ -61,7 +61,7 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
                                 <p th:text="|${pizza.price} €|"></p>
-                                <div class="d-flex justify-content-evenly">
+                                <div class="d-flex justify-content-evenly" sec:authorize="hasAuthority('ADMIN')">
                                     <a class="btn btn-outline-primary mx-1" th:href="@{|/pizzas/edit/${pizza.id}|}"> Modifica </a>
                                     <form action="#" th:action="@{'/pizzas/delete/{id}'(id=${pizza.id})}" method="post" onclick="return confirm('Are you sure?')">
                                         <button class="btn btn-outline-danger mx-1" type="submit" id="submitButton"> Elimina </button>

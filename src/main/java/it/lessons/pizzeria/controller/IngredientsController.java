@@ -1,6 +1,7 @@
 package it.lessons.pizzeria.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,7 +28,10 @@ public class IngredientsController {
     private IngredientsService service;
 
     @GetMapping()
-    public String index(Model model) {
+    public String index(Authentication authentication, Model model) {
+        // diamo la possibilità di vedere il nome nella pagina
+        model.addAttribute("username", authentication.getName());
+
         model.addAttribute("list", service.findAllIngredients());
         // va messo un ingredientObj perché l'oggetto deve andare ad inserire i valori nel caso
         // si voglia creare qualcosa, e va dato subito

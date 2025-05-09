@@ -3,6 +3,7 @@ package it.lessons.pizzeria.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -55,7 +56,10 @@ public class DiscountController {
     }
 
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable Long id, Model model) {
+    public String edit(Authentication authentication, @PathVariable Long id, Model model) {
+        // diamo la possibilità di vedere il nome nella pagina
+        model.addAttribute("username", authentication.getName());
+
         Discount discount = discountRepository.findById(id).get();
         model.addAttribute("discount", discount);
         model.addAttribute("editMode", true);
